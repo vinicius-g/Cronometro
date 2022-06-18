@@ -6,42 +6,50 @@ var minTime = "00"
 var secTime = "00"
 var cenTime = "00"
 
-min.innerHTML = minTime 
-sec.innerHTML = secTime 
-cen.innerHTML = cenTime 
+min.innerHTML = JSON.parse(localStorage.getItem("time")).minutes || minTime
+sec.innerHTML = JSON.parse(localStorage.getItem("time")).seconds || secTime
+cen.innerHTML = JSON.parse(localStorage.getItem("time")).hundredth || cenTime
 
 var startBtn = document.querySelector("[data-play]")
 var pauseBtn = document.querySelector("[data-pause]")
 var restartBtn = document.querySelector("[data-reset]")
 
-var timer 
+var timer
 
 function passTime() {
   cenTime++
-   if (cenTime == 99) {
+  if (cenTime == 99) {
     secTime++
     cenTime = 0
   }
   if (secTime == 60) {
-    minTime ++
+    minTime++
     secTime = 0
   }
-  
+
   if (cenTime < 10 && cenTime != 0) {
-    cen.innerHTML = "0"+cenTime
+    cen.innerHTML = "0" + cenTime
   } else {
     cen.innerHTML = cenTime
   }
   if (secTime < 10 && secTime != 0) {
-    sec.innerHTML = "0"+secTime
+    sec.innerHTML = "0" + secTime
   } else {
     sec.innerHTML = secTime
   }
   if (minTime < 10 && minTime != 0) {
-    min.innerHTML = "0"+minTime
+    min.innerHTML = "0" + minTime
   } else {
     min.innerHTML = minTime
   }
+
+  let timeNow = {
+    minutes: min.innerHTML,
+    seconds: sec.innerHTML,
+    hundredth: cen.innerHTML
+  }
+
+  localStorage.setItem("time", JSON.stringify(timeNow))
   timer = setTimeout(passTime, 1)
 }
 
@@ -56,8 +64,8 @@ function returnTimer() {
 }
 
 startBtn.addEventListener('click', () => {
- clearInterval(timer)
- passTime() 
+  clearInterval(timer)
+  passTime()
 })
 
 pauseBtn.addEventListener('click', () => {
@@ -73,17 +81,17 @@ var keys = {}
 window.addEventListener('keydown', (e) => {
   keys[e.key] = true
 
-  if (keys=['Control'] && e.key == 'i') {
+  if (keys = ['Control'] && e.key == 'i') {
     e.preventDefault()
     startBtn.click()
-  } 
+  }
 
-  if (keys=['Control'] && e.key == 'p') {
+  if (keys = ['Control'] && e.key == 'p') {
     e.preventDefault()
     pauseBtn.click()
   }
 
-  if (keys=['Control'] && e.key == 'r') {
+  if (keys = ['Control'] && e.key == 'r') {
     e.preventDefault()
     restartBtn.click()
   }
