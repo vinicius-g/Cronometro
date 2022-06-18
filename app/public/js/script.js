@@ -16,6 +16,8 @@ var restartBtn = document.querySelector("[data-reset]")
 
 var timer
 
+var timeNow
+
 function passTime() {
   cenTime++
   if (cenTime == 99) {
@@ -43,7 +45,7 @@ function passTime() {
     min.innerHTML = minTime
   }
 
-  let timeNow = {
+  timeNow = {
     minutes: min.innerHTML,
     seconds: sec.innerHTML,
     hundredth: cen.innerHTML
@@ -60,6 +62,13 @@ function returnTimer() {
   cen.innerHTML = cenTime
   sec.innerHTML = secTime
   min.innerHTML = minTime
+
+  timeNow = {
+    minutes: min.innerHTML,
+    seconds: sec.innerHTML,
+    hundredth: cen.innerHTML
+  }
+  localStorage.setItem("time", JSON.stringify(timeNow))
   clearInterval(timer)
 }
 
