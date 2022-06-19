@@ -8,5 +8,6 @@ Suas **funcionalidades** são:
         - 1 sec = 99 cen
 - Apertando no botão **pausar** ou apertando **CTRL + p**, o contador irá parar mostrando o instante em que parou.
 - Apertando no botão **resetar** ou apertando **CTRL + r**, o contador irá parar e retornar imediatamente ao instante 0.
+- O tempo é sempre salvo no local Storage, e fica guardado mesmo se o navegador for fechado.
 
 ### **O cronômetro não foi projetado para ir além de 16 horas e 40 minutos.**
