@@ -18,6 +18,16 @@ var timer
 
 var timeNow
 
+function saveLocalStorage() {
+  timeNow = {
+    minutes: min.innerHTML,
+    seconds: sec.innerHTML,
+    hundredth: cen.innerHTML
+  }
+
+  localStorage.setItem("time", JSON.stringify(timeNow))
+}
+
 function passTime() {
   cenTime++
   if (cenTime == 99) {
@@ -29,30 +39,20 @@ function passTime() {
     secTime = 0
   }
 
-  if (cenTime < 10 && cenTime != 0) {
-    cen.innerHTML = "0" + cenTime
-  } else {
-    cen.innerHTML = cenTime
-  }
-  if (secTime < 10 && secTime != 0) {
-    sec.innerHTML = "0" + secTime
-  } else {
-    sec.innerHTML = secTime
-  }
-  if (minTime < 10 && minTime != 0) {
-    min.innerHTML = "0" + minTime
-  } else {
-    min.innerHTML = minTime
-  }
+  correctNumber(cenTime)
+  correctNumber(secTime)
+  correctNumber(minTime)
 
-  timeNow = {
-    minutes: min.innerHTML,
-    seconds: sec.innerHTML,
-    hundredth: cen.innerHTML
-  }
-
-  localStorage.setItem("time", JSON.stringify(timeNow))
+  saveLocalStorage()
   timer = setTimeout(passTime, 1)
+}
+
+function correctNumber(numberValue) {
+  if (numberValue < 10 && numberValue !== 0) {
+    numberValue.innerHTML = "0" + numberValue
+  } else {
+    numberValue.innerHTML = numberValue
+  }
 }
 
 function returnTimer() {
@@ -63,12 +63,7 @@ function returnTimer() {
   sec.innerHTML = secTime
   min.innerHTML = minTime
 
-  timeNow = {
-    minutes: min.innerHTML,
-    seconds: sec.innerHTML,
-    hundredth: cen.innerHTML
-  }
-  localStorage.setItem("time", JSON.stringify(timeNow))
+  saveLocalStorage()
   clearInterval(timer)
 }
 
@@ -81,9 +76,7 @@ pauseBtn.addEventListener('click', () => {
   clearInterval(timer)
 })
 
-restartBtn.addEventListener('click', () => {
-  returnTimer()
-})
+restartBtn.addEventListener('click', returnTimer)
 
 var keys = {}
 
