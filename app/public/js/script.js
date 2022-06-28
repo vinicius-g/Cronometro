@@ -6,9 +6,15 @@ var minTime = "00"
 var secTime = "00"
 var cenTime = "00"
 
-min.innerHTML = JSON.parse(localStorage.getItem("time")).minutes || minTime
-sec.innerHTML = JSON.parse(localStorage.getItem("time")).seconds || secTime
-cen.innerHTML = JSON.parse(localStorage.getItem("time")).hundredth || cenTime
+if (localStorage.getItem("time")) {
+  minTime = JSON.parse(localStorage.getItem("time")).minutes
+  secTime = JSON.parse(localStorage.getItem("time")).seconds
+  cenTime = JSON.parse(localStorage.getItem("time")).hundredth
+}
+
+min.innerHTML = minTime
+sec.innerHTML = secTime
+cen.innerHTML = cenTime
 
 var startBtn = document.querySelector("[data-play]")
 var pauseBtn = document.querySelector("[data-pause]")
@@ -39,19 +45,23 @@ function passTime() {
     secTime = 0
   }
 
-  correctNumber(cenTime)
-  correctNumber(secTime)
-  correctNumber(minTime)
+  min.innerHTML = minTime
+  sec.innerHTML = secTime
+  cen.innerHTML = cenTime
+
+  correctNumber(cenTime.toString(), cen)
+  correctNumber(secTime.toString(), sec)
+  correctNumber(minTime.toString(), min)
 
   saveLocalStorage()
-  timer = setTimeout(passTime, 1)
+  timer = setTimeout(passTime, 10)
 }
 
-function correctNumber(numberValue) {
-  if (numberValue < 10 && numberValue !== 0) {
-    numberValue.innerHTML = "0" + numberValue
+function correctNumber(timeValue, timeContainer) {
+  if (timeValue < 10 && timeValue !== "00" && timeValue.length < 2) {
+    timeContainer.innerHTML = "0" + timeValue
   } else {
-    numberValue.innerHTML = numberValue
+    timeContainer.innerHTML = timeValue
   }
 }
 
@@ -68,22 +78,26 @@ function returnTimer() {
 }
 
 startBtn.addEventListener('click', () => {
-  clearInterval(timer)
+  startBtn.classList.add("lock")
   passTime()
 })
 
 pauseBtn.addEventListener('click', () => {
+  startBtn.classList.remove("lock")
   clearInterval(timer)
 })
 
-restartBtn.addEventListener('click', returnTimer)
+restartBtn.addEventListener('click', () => {
+  startBtn.classList.remove("lock")
+  returnTimer()
+})
 
 var keys = {}
 
 window.addEventListener('keydown', (e) => {
   keys[e.key] = true
 
-  if (keys = ['Control'] && e.key == 'i') {
+  if (keys = ['Control'] && e.key == 'i' && (!startBtn.classList.contains("lock"))) {
     e.preventDefault()
     startBtn.click()
   }
