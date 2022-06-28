@@ -58,10 +58,8 @@ function passTime() {
 }
 
 function correctNumber(timeValue, timeContainer) {
-  if (timeValue < 10 && timeValue !== "00" && timeValue.length < 2) {
+  if (timeValue.length < 2) {
     timeContainer.innerHTML = "0" + timeValue
-  } else {
-    timeContainer.innerHTML = timeValue
   }
 }
 
@@ -92,27 +90,24 @@ restartBtn.addEventListener('click', () => {
   returnTimer()
 })
 
-var keys = {}
+var keys = []
 
 window.addEventListener('keydown', (e) => {
-  keys[e.key] = true
+  keys.push(e.key)
+  e.preventDefault()
 
-  if (keys = ['Control'] && e.key == 'i' && (!startBtn.classList.contains("lock"))) {
-    e.preventDefault()
+  if (keys.includes("Control") && e.key == 'i' && (!startBtn.classList.contains("lock"))) {
     startBtn.click()
+    keys = []
   }
 
-  if (keys = ['Control'] && e.key == 'p') {
-    e.preventDefault()
+  if (keys.includes("Control") && e.key == 'p') {
     pauseBtn.click()
+    keys = []
   }
 
-  if (keys = ['Control'] && e.key == 'r') {
-    e.preventDefault()
+  if (keys.includes("Control") && e.key == 'r') {
     restartBtn.click()
+    keys = []
   }
-})
-
-window.addEventListener('keyup', (e) => {
-  delete keys[e.key]
 })
