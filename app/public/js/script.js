@@ -38,20 +38,20 @@ function passTime() {
   cenTime++
   if (cenTime == 99) {
     secTime++
+    sec.innerHTML = secTime
+    correctNumber(secTime.toString(), sec)
     cenTime = 0
   }
   if (secTime == 60) {
     minTime++
+    min.innerHTML = minTime
+    correctNumber(minTime.toString(), min)
     secTime = 0
   }
 
-  min.innerHTML = minTime
-  sec.innerHTML = secTime
   cen.innerHTML = cenTime
 
   correctNumber(cenTime.toString(), cen)
-  correctNumber(secTime.toString(), sec)
-  correctNumber(minTime.toString(), min)
 
   saveLocalStorage()
   timer = setTimeout(passTime, 10)
