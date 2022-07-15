@@ -36,13 +36,13 @@ function saveLocalStorage() {
 
 function passTime() {
   cenTime++
-  if (cenTime == 99) {
+  if (cenTime > 99) {
     secTime++
     sec.innerHTML = secTime
     correctNumber(secTime.toString(), sec)
     cenTime = 0
   }
-  if (secTime == 60) {
+  if (secTime > 59) {
     minTime++
     min.innerHTML = minTime
     correctNumber(minTime.toString(), min)
