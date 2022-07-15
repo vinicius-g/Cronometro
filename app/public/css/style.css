@@ -93,6 +93,12 @@ body {
 
 #btn-container button.lock {
     pointer-events: none;
+    background-color: #aaa;
+}
+
+#btn-container button.paused {
+    pointer-events: none;
+    background-color: #aaa;
 }
 
 @media (max-width: 500px) {

@@ -77,16 +77,19 @@ function returnTimer() {
 
 startBtn.addEventListener('click', () => {
   startBtn.classList.add("lock")
+  pauseBtn.classList.remove("paused")
   passTime()
 })
 
 pauseBtn.addEventListener('click', () => {
   startBtn.classList.remove("lock")
+  pauseBtn.classList.add("paused")
   clearInterval(timer)
 })
 
 restartBtn.addEventListener('click', () => {
   startBtn.classList.remove("lock")
+  pauseBtn.classList.remove("paused")
   returnTimer()
 })
 
