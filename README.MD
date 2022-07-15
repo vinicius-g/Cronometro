@@ -11,3 +11,4 @@ Suas **funcionalidades** são:
 - O tempo é sempre salvo no local Storage, e fica guardado mesmo se o navegador for fechado.
 
 ### **O cronômetro não foi projetado para ir além de 16 horas e 40 minutos.**
+### IMPOTRTANTE: Os resultados não são precisos por conta de uma inconsistência do método "setTimeout"!
